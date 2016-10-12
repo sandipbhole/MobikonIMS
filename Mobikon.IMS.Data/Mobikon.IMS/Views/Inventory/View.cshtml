@@ -1,0 +1,172 @@
+﻿@model IEnumerable<Mobikon.IMS.Message.DeviceTransaction>
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.serialNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productSerial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deviceDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.outletName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deliveryDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dcDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rdc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rdcDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hicDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.insured)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.insuranceClaim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.damagedOldDevice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.companyOwner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.transferOwnershipDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.userName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.serialNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productSerial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deviceDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.countryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.outletName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deliveryDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dcDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rdc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rdcDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.hicDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.insured)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.insuranceClaim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.damagedOldDevice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.companyOwner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.transferOwnershipDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

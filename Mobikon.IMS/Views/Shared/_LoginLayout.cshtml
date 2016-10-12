@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<link rel="shortcut icon" type="image/ico" href="~/Images/favicon.ico">
+<meta http-equiv="X-UA-Compatible" content="IE=11" />
+<html>
+    <head>
+        @*<meta charset="utf-8" />*@
+        @*<meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+        <meta name="viewport" content="width=device-width">
+        <title>@ViewBag.Title - MobikonIMS</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @*<style>
+            footer {
+                background: rgba(0,0,0,0.3);
+                position: fixed;
+                bottom: 10px;
+            }
+        </style>*@
+
+    </head>
+    <body style=" background-color:#eee;">
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+        <div class="navbar navbar-inverse navbar-login-top">
+            <div class="container">
+                <div class="navbar-header">
+                    @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("MobikonIMS","MobikonIMS","MobikonIMS",null,new {@class = "navbar-brand"})*@
+                    <img src="~/Images/mobikon-logo.png" width="150" height="40">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid body-content">
+            @RenderBody()
+
+            <footer class="col-md-offset-1">
+                <div class="container body-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>&copy; @DateTime.Now.Year-Clay Systems & Services</p>
+                        </div>
+                        @* <div class="col-md-6 pull-right">
+                                @Html.ActionLink("About Us", "Contact", "MobikonIMS")
+                            </div>*@
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

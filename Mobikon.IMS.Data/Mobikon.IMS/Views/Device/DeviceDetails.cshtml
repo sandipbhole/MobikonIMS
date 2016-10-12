@@ -1,0 +1,96 @@
+﻿@model Mobikon.IMS.Message.Device
+@{
+    ViewBag.Title = "Device Details";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Device Details</title>
+    </head>
+    <body>
+        <div>&nbsp;</div>
+        <center>
+            <h5>
+                <strong>Device Details</strong>
+            </h5>
+        </center>
+        <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">
+            <div>&nbsp;</div>
+            <div class="col-md-offset-4">               
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(device => device.productSerial)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.productSerial)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(device => device.deviceDetails)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.deviceDetails)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(device => device.companyOwner)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.companyOwner)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(device => device.status)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.status)
+                    </dd>
+                    @if (Model.status == "Blocked")
+                    {
+                        <dt>
+                            @Html.DisplayNameFor(device => device.blockedDate)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(device => device.blockedDate)
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(device => device.note)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.note)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(device => device.userName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.userName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(device => device.createdDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(device => device.createdDate)
+                    </dd>
+                </dl>
+                <p>
+                    @if (Session["Role"].ToString() == "Administrators")
+                    {
+                        @Html.ActionLink("Edit", "EditDevice", new { deviceID = Model.deviceID, statusDevice = Model.status })
+                    }
+                    @if (Session["Role"].ToString() == "Accounts" || Session["Role"].ToString() == "Sales")
+                    {
+                        if (Model.status == "Blocked" && Model.userName == Session["UserName"].ToString())
+                        {
+                            @Html.ActionLink("Edit", "EditDevice", new { deviceID = Model.deviceID, statusDevice = Model.status })
+                        }
+                        if (Model.status != "Blocked")
+                        {
+                            @Html.ActionLink("Edit", "EditDevice", new { deviceID = Model.deviceID, statusDevice = Model.status })
+                        }
+                    }
+                    | @Html.ActionLink("Back to List", "Device")
+                </p>
+            </div>
+        </div>
+        @section Scripts {  @Scripts.Render("~/bundles/jqueryval")    }
+</body>
+</html>

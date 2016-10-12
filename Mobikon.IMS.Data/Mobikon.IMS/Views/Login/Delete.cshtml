@@ -1,0 +1,48 @@
+﻿@model Mobikon.IMS.Message.User
+
+@{
+    ViewBag.Title = "Delete user";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete User</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <hr />
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "Sign in failed. Check your login & password details.")
+        <fieldset>
+            <legend>Delete User</legend>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(user => user.userName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("userName")
+                        @Html.ValidationMessageFor(user => user.userName,"", new { @class = "text-danger" })
+                    </div>
+                </div>           
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Delete" name="command" class="btn btn-default" />
+                        <input type="submit" value="Cancel" name="command" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

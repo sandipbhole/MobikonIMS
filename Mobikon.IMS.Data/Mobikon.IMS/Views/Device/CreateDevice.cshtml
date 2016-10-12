@@ -1,0 +1,93 @@
+﻿@model Mobikon.IMS.Message.Device
+
+@{
+    ViewBag.Title = "Add Device";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>Add Device</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">       
+        <center>
+            <div class="form-horizontal">
+             
+                @Html.ValidationSummary(true, "Device not saved successfully.", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label(" ", new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.deviceType, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(device => device.deviceType, ViewBag.deviceType as IEnumerable<SelectListItem>, new { @class = "form-control", @autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(device => device.productSerial, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.productSerial, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(device => device.productSerial, new { @class = "form-control", @maxlength = "15" })
+                        @Html.ValidationMessageFor(device => device.productSerial, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.deviceDetails, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(device => device.deviceDetails, new { @class = "form-control", @maxlength = "250" })
+                        @Html.ValidationMessageFor(device => device.deviceDetails, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.companyOwner, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @*@Html.CheckBoxFor(device => device.companyOwner,new { @class = "form-control", @checked = "checked"})*@
+                        @Html.DropDownListFor(device => device.companyOwner, ViewBag.companyOwner as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(device => device.companyOwner, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.status, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.status, ViewBag.statusName as IEnumerable<SelectListItem>, "Select status", new { @class = "form-control", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(device => device.status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.deviceTag, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(device => device.deviceTag, new { @class = "form-control", @maxlength = "25" })
+                        @Html.ValidationMessageFor(device => device.deviceTag, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.note, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextAreaFor(device => device.note, new { @class = "form-control", @maxlength = "5000" })
+                        @Html.ValidationMessageFor(device => device.note, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" name="command" value="Save" class="btn btn-default" />
+                        @*<input type="submit" name="command" value="Cancel" class="btn btn-default" />
+                        <input type="submit" name="command" value="Close" class="btn btn-default" />*@
+                    </div>
+                </div>
+            </div>
+        </center>
+
+            <div class="col-md-3">
+                @Html.ActionLink("Back to List", "Device", "Device") <div>&nbsp;</div>
+            </div>
+            </div>
+            }

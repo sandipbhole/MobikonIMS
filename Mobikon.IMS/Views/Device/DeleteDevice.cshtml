@@ -1,0 +1,109 @@
+﻿@model Mobikon.IMS.Message.Device
+
+@{
+    ViewBag.Title = "Edit device";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete Device</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <br />
+            <br />
+            <center>
+                <h5>
+                    <strong>Delete Device</strong>
+                </h5>
+            </center>
+            <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">
+                <center>
+                    @Html.ValidationSummary(true, "Device not updated successfully.", new { @class = "text-danger" })
+
+                    <div class="form-horizontal">
+                        <div class="form-horizontal">
+                            @Html.HiddenFor(device => device.deviceID)
+                            <div class="form-group">
+                                @Html.Label(" ", new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.productSerial, new { @class = "control-label col-md-4" })
+                                <div class="col-md-5 ">
+                                    @Html.TextBoxFor(device => device.productSerial, new { @class = "form-control", @maxlength = "15", @readonly = "readonly" }) @*@disabled = "disabled"*@
+
+                                    @Html.ValidationMessageFor(device => device.productSerial, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.deviceDetails, new { @class = "control-label col-md-4" })
+                                <div class="col-md-5 ">
+                                    @Html.TextBoxFor(device => device.deviceDetails, new { @class = "form-control", @maxlength = "250", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(device => device.deviceDetails, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.deviceType, new { @class = "control-label col-md-4" })
+                                <div class="col-md-5 ">
+                                    @Html.TextBoxFor(device => device.deviceType, new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(device => device.deviceType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.companyOwner, new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(device => device.companyOwner, new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(device => device.companyOwner, "", new { @class = "text-danger" })
+                                </div>
+                            </div>                           
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.status, new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(device => device.status, new { @class = "form-control",  @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(device => device.status, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.deviceTag, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(device => device.deviceTag, new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(device => device.deviceTag, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(device => device.note, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextAreaFor(device => device.note, new { @class = "form-control", @maxLength = "5000", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(device => device.note, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <input type="submit" value="Delete" name="command" class="btn btn-default" />
+                                    @*<input type="submit" value="Cancel" name="command" class="btn btn-default" />*@
+                                    @*<input type="submit" value="Close" name="command" class="btn btn-default" />*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+                <div class="col-md-3">
+                    @Html.ActionLink("Back to List", "Device")<div>&nbsp;</div>
+                </div>
+            </div>
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

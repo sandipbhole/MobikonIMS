@@ -1,0 +1,118 @@
+﻿@model PagedList.IPagedList<Mobikon.IMS.Message.User>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Users List";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Users List</title>
+    </head>
+    <body>
+       @using (Html.BeginForm("Users", "Login", FormMethod.Get))
+       {
+            <div>&nbsp;</div>
+            <center>
+                <h5>
+                    <strong>Users List</strong>
+                </h5>
+            </center>
+            <div style="border-radius: 5px; vertical-align:central; width:1250px;background-color: #fff;border: solid 1px #808080;">              
+                <div class="filtering">
+                    <div class="container">
+                        <div class="row">
+                            <div class="brnd col-md-3">
+                                <h5>User Name:</h5>
+                                @Html.TextBox("userNameSearch", ViewBag.userNameSearch as SelectListItem, new { @class = "form-control" })
+                            </div>
+                            <div class="brnd col-md-2">
+                                <h5>Role:</h5>
+                                @Html.DropDownList("roleNameSearch", ViewBag.roleNameSearch as SelectList, new { @class = "form-control" })
+
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>Status:</h5>
+                                @Html.CheckBox("statusUserSearch", true, new { @class = "form-control" })
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>&nbsp;</h5>
+                                <input type="submit" value="Search" class="btn btn-default" />
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>&nbsp;</h5>
+                                <p>
+                                    @Html.ActionLink("Register", "Register")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>&nbsp;</div>
+            </div>
+       }
+        <div style="border-radius: 5px;vertical-align:central; width:1250px;background-color: #fff;border: solid 1px #808080;">
+            <div>&nbsp;</div>      
+            <div class="container">
+                <div>
+                    <table class="table table-striped" data-search="true" style="border:solid 1px #ddd;background-color:lightyellow">
+                      
+                        <tr>
+                            <th>
+                                @Html.ActionLink("User Name", "Users", new { sortOrder = ViewBag.userNameSort, userNameFilter = ViewBag.userNameFilter })
+
+                            </th>
+                            <th>
+                                @Html.ActionLink("Role", "Users", new { sortOrder = ViewBag.roleNameSort, roleNameFilter = ViewBag.roleNameFilter })
+                            </th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(user => item.userName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(user => item.roleName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(user => item.email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(user => item.activated)
+                                </td>
+                                <td>
+
+                                    @if (item.activated == true)
+                                    {
+                                        @Html.ActionLink("Edit", "EditUser", new { userID = item.userID, statusUser = item.activated }) @Html.DisplayFor(user => item.seperator)
+                                    }
+                                    @if (item.activated == true)
+                                    {
+                                        @Html.ActionLink("Reset Password", "ResetPassword", new { userID = item.userID, statusUser = item.activated }) @Html.DisplayFor(user => item.seperator)
+                                    }
+                                    @Html.ActionLink("Details", "UserDetails", new { userID = item.userID, statusUser = item.activated })
+                                </td>
+                            </tr>
+                        }                     
+                    </table>
+                </div>               
+                @Html.PagedListPager(Model, page => Url.Action("Users", new { page, sortOrder = ViewBag.currentSort, userNameFilter = ViewBag.userNameFilter, roleNameFilter = ViewBag.roleNameFilter, paging = ViewBag.paging }))
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+

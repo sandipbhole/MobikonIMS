@@ -1,0 +1,242 @@
+﻿@model PagedList.IPagedList<Mobikon.IMS.Message.Device>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Device List";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Device List</title>   
+    </head>
+    <body>
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/mobikonims.js"></script>
+        <center>
+            @using (Html.BeginForm("Device", "Device", FormMethod.Get))
+            {
+                <div>&nbsp</div>
+                <center>
+                    <h5>
+                        <strong>Device List</strong>
+                    </h5>
+                </center>               
+                <div style="border-radius: 5px; vertical-align:central;text-align:left;  width:1250px;background-color: #fff;border: solid 1px #808080;">                  
+                    <div class="filtering">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="brnd col-md-2">
+                                    <h5>Device Type:</h5>
+                                    @Html.DropDownList("deviceTypeSearch", ViewBag.deviceTypeSearch as SelectList,  new { @class = "form-control", @autofocus = "autofocus" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>Device Serial:</h5>
+                                    @Html.TextBox("productSerialSearch", ViewBag.productSerialFilter as string, new { @class = "form-control" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>Device Details:</h5>
+                                    @Html.TextBox("deviceDetailsSearch", ViewBag.deviceDetailsFilter as string, new { @class = "form-control" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>Status:</h5>
+                                    @Html.DropDownList("statusDeviceSearch", ViewBag.statusDeviceSearch as SelectList,  new { @class = "form-control" })
+                                </div>
+                                <div class="brnd col-md-1">
+                                    <h5>&nbsp;</h5>
+                                    <input type="submit" value="Search" class="btn btn-default" />
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>&nbsp;</h5>
+                                    @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Operations")
+                                    {
+                                        @Html.ActionLink("Add Device", "CreateDevice", null, new { @class = "btn btn-default" })
+                                    }
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                    <div>&nbsp;</div>
+                </div>
+            }
+            <div style="border-radius: 5px;vertical-align:central; text-align:left; width:1250px;background-color: #fff;border: solid 1px #808080;">  
+                <div style="float:right;">
+                    @Html.Label("", (string)ViewBag.deviceCount, new { style = "color:black;text-alignment=left;" })
+                </div>              
+                <center>
+                    <div>
+                        @Html.Label("", Session["ValidationMessage"].ToString(), new { @class = "text-danger" })
+                    </div>
+                </center>
+                <div class="container-fluid">
+                    <br />
+                    <div>
+                        <table class="table table-striped" data-search="true" style="border:solid 1px #ddd;background-color:lightyellow">
+                            <tr>
+                                @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Sales" || Session["Role"].ToString() == "Operations")
+                                {
+                                    <th>
+                                        @Html.ActionLink("Block/Unblock", "BlockUnblockDevice", "Device", null, new { @class = "btn btn-default", @id = "lnkBlockUnblock" })
+                                    </th>
+                                }
+                                <th>
+                                    @Html.ActionLink("Device Type", "Device", new { sortOrder = ViewBag.deviceTypeSort, deviceTypeFilter = ViewBag.deviceTypeFilter })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Device Serial", "Device", new { sortOrder = ViewBag.productSerialSort, productSerialFilter = ViewBag.productSerialFilter })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Device Details", "Device", new { sortOrder = ViewBag.deviceDetailsSort, deviceDetailsFilter = ViewBag.deviceDetailsFilter })
+                                </th>
+                                <th>Company Owned</th>
+                                <th>
+                                    @Html.ActionLink("Status", "Device", new { sortOrder = ViewBag.statusSort, statusDeviceFilter = ViewBag.statusDeviceFilter })
+                                </th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Operations")
+                                    {
+                                        <td>
+                                            @if (item.status == "Blocked")
+                                            {
+                                               
+                                                    @Html.CheckBox("chkBlockUnblock", false, new { @value = item.deviceID + "|" + item.productSerial + "|" + item.status + "|" + item.deviceDetails })
+                                                
+                                            }
+                                            @if (item.status == "In Stock")
+                                            {
+                                                
+                                                    @Html.CheckBox("chkBlockUnblock", false, new { @value = item.deviceID + "|" + item.productSerial + "|" + item.status + "|" + item.deviceDetails })
+                                                
+                                            }
+                                        </td>
+                                    }
+                                    @if (Session["Role"].ToString() == "Sales")
+                                    {
+                                        <td>
+                                            @if (item.status == "Blocked")
+                                            {
+                                                if (item.userName == Session["UserName"].ToString())
+                                                {
+                                                    @Html.CheckBox("chkBlockUnblock", false, new { @value = item.deviceID + "|" + item.productSerial + "|" + item.status + "|" + item.deviceDetails })
+                                                }
+                                            }
+                                            @if (item.status == "In Stock")
+                                            {
+                                                
+                                                    @Html.CheckBox("chkBlockUnblock", false, new { @value = item.deviceID + "|" + item.productSerial + "|" + item.status + "|" + item.deviceDetails })
+                                                
+                                            }
+                                        </td>
+                                    }
+                                    <td>
+                                        @Html.DisplayFor(device => item.deviceType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.productSerial)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.deviceDetails)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.companyOwner)
+                                    </td>
+                                    @if (item.status == "Blocked" || item.status == "Sold/Written Off" || item.status == "Damage")
+                                    {
+                                        <td style="color:red">
+                                            @Html.DisplayFor(device => item.status)
+                                        </td>
+                                    }
+                                    @if (item.status == "In Stock")
+                                    {
+                                        <td style="color:green">
+                                            @Html.DisplayFor(device => item.status)
+                                        </td>
+                                    }
+                                    @if (item.status == "Deployed-Active")
+                                    {
+                                        <td style="color:Orange">
+                                            @Html.DisplayFor(device => item.status)
+                                        </td>
+                                    }
+                                    @if (item.status != "Deployed-Active" && item.status != "In Stock" && item.status != "Blocked" && item.status != "Sold/Written Off" && item.status != "Damage")
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(device => item.status)
+                                        </td>
+                                    }
+                                    @if (Session["Role"].ToString() == "Sales")
+                                    {
+                                        <td>
+                                            @if (item.status == "Blocked" && item.userName == Session["UserName"].ToString())
+                                            {
+                                                @Html.ActionLink("Edit", "EditDevice", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                                if (item.serialNo != 0)
+                                                {
+                                                    @Html.ActionLink("Edit Inventory", "EditDeviceTransaction", new { serialNo = item.serialNo }) @Html.DisplayFor(device => item.seperator)
+                                                }
+                                            }
+
+                                            @if (item.status != "Blocked")
+                                            {
+                                                @Html.ActionLink("Edit", "EditDevice", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                                if (item.serialNo != 0)
+                                                {
+                                                    @Html.ActionLink("Edit Inventory", "EditDeviceTransaction", new { serialNo = item.serialNo }) @Html.DisplayFor(device => item.seperator)
+                                                }
+                                            }
+                                            @Html.ActionLink("Details", "DeviceDetails", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("History", "DeviceHistory", new { productSerialSearch = item.productSerial, deviceDetailsSearch = item.deviceDetails })
+                                        </td>
+                                    }
+                                    @if (Session["Role"].ToString() == "Administrators")
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Edit", "EditDevice", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("Delete", "DeleteDevice", new { deviceID = item.deviceID,productSerial = item.productSerial, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @if (item.serialNo != 0)
+                                            {
+                                                @Html.ActionLink("Edit Inventory", "EditDeviceTransaction", new { serialNo = item.serialNo }) @Html.DisplayFor(device => item.seperator)                                              
+                                            }
+                                            @Html.ActionLink("Details", "DeviceDetails", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("History", "DeviceHistory", new { productSerialSearch = item.productSerial, deviceDetailsSearch = item.deviceDetails })
+                                        </td>
+                                    }
+                                    @if (Session["Role"].ToString() == "Operations")
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Edit", "EditDevice", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @if (item.serialNo != 0)
+                                            {
+                                                @Html.ActionLink("Edit Inventory", "EditDeviceTransaction", new { serialNo = item.serialNo }) @Html.DisplayFor(device => item.seperator)
+                                            }
+                                            @Html.ActionLink("Details", "DeviceDetails", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("History", "DeviceHistory", new { productSerialSearch = item.productSerial, deviceDetailsSearch = item.deviceDetails })
+                                        </td>
+                                    }
+                                    @if (Session["Role"].ToString() == "Accounts")
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Details", "DeviceDetails", new { deviceID = item.deviceID, statusDevice = item.status }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("History", "DeviceHistory", new { productSerialSearch = item.productSerial, deviceDetailsSearch = item.deviceDetails })
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                            @*</tbody>*@
+                        </table>
+                    </div>
+                    @Html.PagedListPager(Model, page => Url.Action("Device", new { page, sortOrder = ViewBag.currentSort, productSerialFilter = ViewBag.productSerialFilter, deviceDetailsFilter = ViewBag.deviceDetailsFilter, statusDeviceFilter = ViewBag.statusDeviceFilter, paging = ViewBag.paging }))
+                </div>
+            </div>
+        </center>
+    </body>
+</html>

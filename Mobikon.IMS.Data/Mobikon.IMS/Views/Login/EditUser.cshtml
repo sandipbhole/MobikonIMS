@@ -1,0 +1,80 @@
+﻿@model Mobikon.IMS.Message.User
+
+@{
+    ViewBag.Title = "Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Edit User</title>
+    </head>
+    <body>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <br />
+            <br />
+            <center>
+                <h5>
+                    <strong>Edit User</strong>
+                </h5>
+            </center>
+            <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">          
+                <center>
+                    @Html.ValidationSummary(true, "User edition was unsuccessful. Please correct the errors and try again.")
+                
+                        <div class="form-horizontal">
+                            @Html.HiddenFor(registerUser => registerUser.userID)
+                            <div class="form-group">
+                                @Html.Label(" ", new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(registerUser => registerUser.userName, new { @class = "control-label col-md-4", @forecolor = "Red" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(registerUser => registerUser.userName, new { @class = "form-control", @maxlength = "50", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(registerUser => registerUser.userName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(registerUser => registerUser.email, new { @class = "control-label col-md-4", @forecolor = "Red" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(registerUser => registerUser.email, new { @class = "form-control", @maxlength = "50", @autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(registerUser => registerUser.email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(registerUser => registerUser.roleName, new { @class = "control-label col-md-4", @forecolor = "Red" })
+                                <div class="col-md-5">
+                                    @Html.DropDownListFor(registerUser => registerUser.roleName, ViewBag.roleName as SelectList, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(registerUser => registerUser.roleName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(registerUser => registerUser.activated, new { @class = "control-label col-md-4" })
+                                <div class="col-md-1">
+                                    @Html.CheckBoxFor(registerUser => registerUser.activated, new { @checked = "checked", @class = "form-control" })
+                                    @Html.ValidationMessageFor(registerUser => registerUser.activated, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <input type="submit" value="Save" name="command" class="btn btn-default" />
+                                    @*<input type="submit" value="Cancel" name="command" class="btn btn-default" />*@
+                                </div>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+        }
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+    </body>
+</html>
+

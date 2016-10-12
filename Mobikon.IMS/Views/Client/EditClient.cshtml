@@ -1,0 +1,110 @@
+﻿@model Mobikon.IMS.Message.Client
+
+@{
+    ViewBag.Title = "Edit Brand";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=client-width" />
+    <title>Edit brand</title>
+</head>
+<body>
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
+    <script src="/Scripts/jquery-2.1.4.js"></script>
+    <script src="/bundles/jquery-ui"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/mobikonims.js"></script>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        <center>
+            <h5>
+                <strong>Edit Brand</strong>
+            </h5>
+        </center>
+        <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">          
+            <center>
+                @Html.ValidationSummary(true, "Brand not updated successfully.", new { @class = "text-danger" })
+
+                <div class="form-horizontal">
+                    <div class="form-horizontal">
+                        @Html.HiddenFor(client => client.clientID)
+                        <div class="form-group">
+                            @Html.Label(" ", new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(client => client.clientName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-5 ">
+                                @Html.TextBoxFor(client => client.clientName, new { @class = "form-control", @maxLength = "250"})
+                                @Html.ValidationMessageFor(client => client.clientName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(client => client.address, new { @class = "control-label col-md-4" })
+                            <div class="col-md-5 ">
+                                @Html.TextAreaFor(client => client.address, new { @class = "form-control", @maxLength = "5000", @autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(client => client.address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*@Html.HiddenFor(client => client.countryID)*@
+                        <div class="form-group">
+                            @Html.LabelFor(client => client.countryName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(client => client.countryName, ViewBag.countryName as SelectList, "Select country", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(client => client.countryName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*@Html.HiddenFor(client => client.cityID)*@
+                        <div class="form-group">
+                            @Html.LabelFor(client => client.cityName, new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.DropDownListFor(client => client.cityName, ViewBag.cityName as SelectList, "Select city", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(client => client.cityName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(client => client.activated, new { @class = "control-label col-md-4" })
+                            <div class="col-md-5">
+                                @Html.CheckBoxFor(client => client.activated, new { @class = "form-control", @checked = "checked" })
+                                @Html.ValidationMessageFor(client => client.activated, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Save" name="command" class="btn btn-default" />
+                                @*<input type="submit" value="Cancel" name="command" class="btn btn-default" />*@
+                                @*<input type="submit" value="Close" name="command" class="btn btn-default" />*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+            <div class="col-md-3">
+                @Html.ActionLink("Back to List", "Client")<div>&nbsp;</div>
+            </div>
+
+        </div>
+    }
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿@model Mobikon.IMS.Message.Outlet
+
+@{
+    ViewBag.Title = "Outlet Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=outlet-width" />
+        <title>Outlet Details</title>
+    </head>
+    <body>
+        <div>&nbsp;</div>
+        <center>
+            <h5>
+                <strong>Device Details</strong>
+            </h5>
+        </center>
+        <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">
+            <div>&nbsp;</div>
+            <div class="col-md-offset-4">              
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.outletName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.outletName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.address) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.address)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.countryName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.countryName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.cityName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.cityName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.clientName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.clientName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.activated) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.activated)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(outlet => outlet.userName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(outlet => outlet.userName)
+                    </dd>
+                </dl>
+
+                <p>
+                    @if (Model.activated == true)
+                {
+                    if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Operations")
+                    {
+                            @Html.ActionLink("Edit", "EditOutlet", new { outletID = Model.outletID, statusOutlet = Model.activated }) @Html.DisplayFor(outlet => outlet.seperator)
+                        }
+                    }
+                    @Html.ActionLink("Back to List", "Outlet")
+                </p>
+            </div>
+        </div>
+        @section Scripts {        @Scripts.Render("~/bundles/jqueryval")    }
+    </body>
+</html>

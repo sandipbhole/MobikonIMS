@@ -1,0 +1,139 @@
+﻿@model PagedList.IPagedList<Mobikon.IMS.Message.Client>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Brand list";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Brand list</title>
+
+    </head>
+    <body>
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/mobikonims.js"></script>
+        <center>
+            @using (Html.BeginForm("Client", "Client", FormMethod.Get))
+            {
+                <div>&nbsp;</div>
+                <center>
+                    <h5>
+                        <strong>Brand List</strong>
+                    </h5>
+                </center>
+                <div style="border-radius: 5px; vertical-align:central;text-align:left; width:1250px;background-color: #fff;border: solid 1px #808080;">
+                    <div class="filtering">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="brnd col-md-3">
+                                    <h5>Brand:</h5>
+                                    @Html.TextBox("clientNameSearch", ViewBag.clientNameFilter as string, new { @class = "form-control", @autofocus = "autofocus" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>Country:</h5>
+                                    @Html.DropDownList("countryNameSearch", ViewBag.countryNameSearch as SelectList, new { @class = "form-control" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>City:</h5>
+                                    @Html.DropDownList("cityNameSearch", ViewBag.cityNameSearch as SelectList, new { @class = "form-control" })
+                                </div>
+                                <div class="brnd col-md-1">
+                                    <h5>Status:</h5>
+                                    @Html.CheckBox("statusClientSearch", true, ViewBag.CurrentFilter as string)
+                                </div>
+                                <div class="brnd col-md-1">
+                                    <h5>&nbsp;</h5>
+                                    <input type="submit" value="Search" class="btn btn-default" />
+                                </div>
+                                <div class="brnd col-md-1">
+                                    <h5>&nbsp;</h5>
+                                    @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Operations")
+                                    {
+
+                                        @Html.ActionLink("Add Brand", "CreateClient", null, new { @class = "btn btn-default" })
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>&nbsp;</div>
+                </div>
+            }
+            <div style="border-radius: 5px; vertical-align:central;text-align:left;  width:1250px;background-color: #fff;border: solid 1px #808080;">
+                <div class="container-fluid">
+                    <div>&nbsp;</div>
+                    <div>
+                        <table class="table table-striped" data-search="true" style="border:solid 1px #ddd;background-color:lightyellow">
+                            <tr>
+                                <th>
+                                    @Html.ActionLink("Brand", "Client", new { sortOrder = ViewBag.clientNameSort, clientNameFilter = ViewBag.clientNameFilter })
+                                </th>
+                                <th>Address</th>
+                                <th>
+                                    @Html.ActionLink("City", "Client", new { sortOrder = ViewBag.cityNameSort, cityNameFilter = ViewBag.cityNameFilter })
+                                </th>
+                                <th>
+                                    @Html.ActionLink("Country", "Client", new { sortOrder = ViewBag.countryNameSort, countryNameFilter = ViewBag.countryNameFilter })
+                                </th>
+                                <th>  Status</th>
+                                <th>Action</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(device => item.clientName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.cityName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.countryName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(device => item.activated)
+                                    </td>
+                                    @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Accounts")
+                                    {
+                                        <td>
+                                            @*@if (item.activated != false)
+                                            {
+                                                @Html.ActionLink("Edit", "EditClient", new { clientID = item.clientID, statusClient = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                            }*@
+                                            @Html.ActionLink("Edit", "EditClient", new { clientID = item.clientID, statusClient = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("Details", "ClientDetails", new { clientID = item.clientID, statusClient = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("History", "DeviceHistory", new { clientNameSearch = item.clientName, cityNameSearch = item.cityName, countryNameSearch = item.countryName })
+                                        </td>
+                                    }
+                                    @if (Session["Role"].ToString() == "Operations")
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Details", "ClientDetails", new { clientID = item.clientID, statusClient = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                            @Html.ActionLink("History", "DeviceHistory", new { clientNameSearch = item.clientName, cityNameSearch = item.cityName, countryNameSearch = item.countryName })
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    @Html.PagedListPager(Model, page => Url.Action("Client", new { page, sortOrder = ViewBag.currentSort, cityNameFilter = ViewBag.cityNameFilter, countryNameFilter = ViewBag.countryNameFilter, statusClientFilter = ViewBag.statusClientFilter, clientNameFilter = ViewBag.clientNameFilter, paging = ViewBag.paging }))
+                </div>
+            </div>
+        </center>
+    </body>
+</html>

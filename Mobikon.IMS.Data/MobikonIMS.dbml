@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Mobikon" Class="MobikonIMSDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SANDIP\SQLSERVER2014;Initial Catalog=Mobikon;Persist Security Info=True;User ID=sa" SettingsObjectName="Mobikon.IMS.Data.Properties.Settings" SettingsPropertyName="MobikonConnectionString2" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CITY" Member="CITies">
+    <Type Name="CITY">
+      <Column Name="CITYID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CITYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="CITY_OUTLET" Member="OUTLETs" ThisKey="CITYID" OtherKey="CITYID" Type="OUTLET" />
+      <Association Name="COUNTRY_CITY" Member="COUNTRY" ThisKey="COUNTRYID" OtherKey="COUNTRYID" Type="COUNTRY" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CLIENT" Member="CLIENTs">
+    <Type Name="CLIENT">
+      <Column Name="CLIENTID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CLIENTNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="ADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ACTIVATED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="CLIENT_OUTLET" Member="OUTLETs" ThisKey="CLIENTID" OtherKey="CLIENTID" Type="OUTLET" />
+    </Type>
+  </Table>
+  <Table Name="dbo.COUNTRY" Member="COUNTRies">
+    <Type Name="COUNTRY">
+      <Column Name="COUNTRYID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="COUNTRYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Association Name="COUNTRY_CITY" Member="CITies" ThisKey="COUNTRYID" OtherKey="COUNTRYID" Type="CITY" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DEVICE" Member="DEVICEs">
+    <Type Name="DEVICE">
+      <Column Name="DEVICEID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DEVICETYPE" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="PRODUCTSERIAL" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEDETAILS" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETAG" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COMPANYOWNER" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="NOTE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BLOCKEDDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="DEVICE_DEVICETRANSACTION" Member="DEVICETRANSACTIONs" ThisKey="DEVICEID" OtherKey="DEVICEID" Type="DEVICETRANSACTION" />
+      <Association Name="STATUS_DEVICE" Member="STATUS" ThisKey="STATUSID" OtherKey="STATUSID" Type="STATUS" IsForeignKey="true" />
+      <Association Name="USER_DEVICE" Member="USER" ThisKey="USERID" OtherKey="USERID" Type="USER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DEVICETRANSACTION" Member="DEVICETRANSACTIONs">
+    <Type Name="DEVICETRANSACTION">
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DEVICEID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DELIVERYDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DCFILE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RDC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="RDCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HIC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="HICDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="INSURED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="INSURANCECLAIM" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DAMAGEDOLDDEVICE" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="TRANSFEROWNERSHIPDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CURRENTSTATUS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="DEVICE_DEVICETRANSACTION" Member="DEVICE" ThisKey="DEVICEID" OtherKey="DEVICEID" Type="DEVICE" IsForeignKey="true" />
+      <Association Name="STATUS_DEVICETRANSACTION" Member="STATUS" ThisKey="STATUSID" OtherKey="STATUSID" Type="STATUS" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DEVICETYPE" Member="DEVICETYPEs">
+    <Type Name="DEVICETYPE">
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DEVICETYPE" Member="DEVICETYPE1" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OUTLET" Member="OUTLETs">
+    <Type Name="OUTLET">
+      <Column Name="OUTLETID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OUTLETNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="ADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ACTIVATED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="CITY_OUTLET" Member="CITY" ThisKey="CITYID" OtherKey="CITYID" Type="CITY" IsForeignKey="true" />
+      <Association Name="CLIENT_OUTLET" Member="CLIENT" ThisKey="CLIENTID" OtherKey="CLIENTID" Type="CLIENT" IsForeignKey="true" />
+      <Association Name="USER_OUTLET" Member="USER" ThisKey="USERID" OtherKey="USERID" Type="USER" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ROLE" Member="ROLEs">
+    <Type Name="ROLE">
+      <Column Name="ROLEID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ROLENAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="ACTIVATED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="ROLE_USER" Member="USERs" ThisKey="ROLEID" OtherKey="ROLEID" Type="USER" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SETTINGS" Member="SETTINGs">
+    <Type Name="SETTING">
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SETTINGSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="SETTINGSVALUE" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.STATUS" Member="STATUS">
+    <Type Name="STATUS">
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="STATUSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DISPLAYORDER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="STATUS_DEVICE" Member="DEVICEs" ThisKey="STATUSID" OtherKey="STATUSID" Type="DEVICE" />
+      <Association Name="STATUS_DEVICETRANSACTION" Member="DEVICETRANSACTIONs" ThisKey="STATUSID" OtherKey="STATUSID" Type="DEVICETRANSACTION" />
+    </Type>
+  </Table>
+  <Table Name="dbo.USERS" Member="USERs">
+    <Type Name="USER">
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PASSWORD" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="EMAIL" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="ROLEID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LOCKEDOUTENABLED" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ACTIVATED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RESETPASSWORD" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="USER_DEVICE" Member="DEVICEs" ThisKey="USERID" OtherKey="USERID" Type="DEVICE" />
+      <Association Name="USER_OUTLET" Member="OUTLETs" ThisKey="USERID" OtherKey="USERID" Type="OUTLET" />
+      <Association Name="ROLE_USER" Member="ROLE" ThisKey="ROLEID" OtherKey="ROLEID" Type="ROLE" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.GETCLIENT" Method="GETCLIENT">
+    <Parameter Name="clientID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="statusClient" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="GETCLIENTResult">
+      <Column Name="CLIENTID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="ADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CITYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ACTIVATED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GETDEVICEINVENTORYCOUNT" Method="GETDEVICEINVENTORYCOUNT">
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="GETDEVICEINVENTORYCOUNTResult">
+      <Column Name="STATUSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICECOUNT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DISPLAYORDER" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GETOUTLET" Method="GETOUTLET">
+    <Parameter Name="outletID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="outletName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="clientID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="statusOutlet" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="GETOUTLETResult">
+      <Column Name="CLIENTID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTCITYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTCITY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTCOUNTRYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTCOUNTRY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OUTLETID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OUTLETCITYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETCITY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETCOUNTRYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETCOUNTRY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ACTIVATED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.REMOVEBLOCKSTATUS" Method="REMOVEBLOCKSTATUS">
+    <ElementType Name="REMOVEBLOCKSTATUSResult">
+      <Column Name="RESULT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GETDEVICETRANSACTION" Method="GETDEVICETRANSACTION">
+    <Parameter Name="deviceID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="productSerial" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="deviceDetails" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="serialNo" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="outletID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="outletName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="GETDEVICETRANSACTIONResult">
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEDETAILS" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="PRODUCTSERIAL" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETAG" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="COMPANYOWNER" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CLIENTNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CLIENTADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CLIENTCITY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETYPE" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CLIENTCOUNTRY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OUTLETNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="OUTLETADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CURRENTSTATUS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CITYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DELIVERYDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DCFILE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RDC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="RDCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HIC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="HICDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="INSURED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="INSURANCECLAIM" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DAMAGEDOLDDEVICE" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TRANSFEROWNERSHIPDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="STATUSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GETDEVICETRANSACTIONHISTORY" Method="GETDEVICETRANSACTIONHISTORY">
+    <Parameter Name="deviceID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="productSerial" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="deviceDetails" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="serialNo" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="outletID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="outletName" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="toDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="GETDEVICETRANSACTIONHISTORYResult">
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEDETAILS" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="PRODUCTSERIAL" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETAG" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="COMPANYOWNER" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CLIENTNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CLIENTADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CLIENTCITY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETYPE" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="CLIENTCOUNTRY" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OUTLETNAME" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="OUTLETADDRESS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CURRENTSTATUS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CITYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COUNTRYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DELIVERYDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DCFILE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="RDC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="RDCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HIC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="HICDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="INSURED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="INSURANCECLAIM" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DAMAGEDOLDDEVICE" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TRANSFEROWNERSHIPDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="STATUSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GETDEVICE" Method="GETDEVICE">
+    <Parameter Name="deviceID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="productSerial" Type="System.String" DbType="NVarChar(25)" />
+    <Parameter Name="deviceDetails" Type="System.String" DbType="NVarChar(250)" />
+    <Parameter Name="statusDevice" Type="System.String" DbType="NVarChar(50)" />
+    <ElementType Name="GETDEVICEResult">
+      <Column Name="DEVICEID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PRODUCTSERIAL" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEDETAILS" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COMPANYOWNER" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="NOTE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="BLOCKEDDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="STATUSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETAG" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DEVICETYPE" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CURRENTSTATUS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GETSTATUSDEVICELIST" Method="GETSTATUSDEVICELIST">
+    <Parameter Name="statusName" Type="System.String" DbType="NVarChar(250)" />
+    <ElementType Name="GETSTATUSDEVICELISTResult">
+      <Column Name="DEVICEID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="PRODUCTSERIAL" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICEDETAILS" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="STATUSID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="COMPANYOWNER" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="DEVICETAG" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DEVICETYPE" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="STATUSNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="OUTLETID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="OUTLETNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CITYID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CITYNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="CLIENTNAME" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="DC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DCFILE" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DELIVERYDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HIC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="HICDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RDC" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="RDCDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="INSURANCECLAIM" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="REMARKS" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="INSURED" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DAMAGEDOLDDEVICE" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TRANSFEROWNERSHIPDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="USERID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CREATEDDATE" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="SERIALNO" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CURRENTSTATUS" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DELETEDEVICE" Method="DELETEDEVICE">
+    <Parameter Name="deviceID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="productSerial" Type="System.String" DbType="NVarChar(15)" />
+    <ElementType Name="DELETEDEVICEResult">
+      <Column Name="RESULT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

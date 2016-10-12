@@ -1,0 +1,92 @@
+﻿@model Mobikon.IMS.Message.Client
+
+@{
+    ViewBag.Title = "Add Brand";
+}
+
+<script src="/Scripts/modernizr-2.8.3.js"></script>
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script src="/bundles/jquery-ui"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/outlet.js"></script>
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>Add Brand</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-1 col-md-10" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">        
+        <center>           
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "Brand not saved successfully.", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label(" ", new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(client => client.clientName, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(client => client.clientName, new { @class = "form-control", @maxlength = "500", @autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(client => client.clientName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(client => client.address, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextAreaFor(client => client.address, new { @class = "form-control", @maxlength = "5000" })
+                        @Html.ValidationMessageFor(client => client.address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(client => client.countryName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(client => client.countryName, ViewBag.countryName as SelectList, "Select country", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(client => client.countryName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(client => client.cityName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(client => client.cityName, ViewBag.cityName as SelectList, "Select city", new { @class = "form-control", @disable = "disable" })
+                        @Html.ValidationMessageFor(client => client.cityName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(client => client.activated, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.CheckBoxFor(client => client.activated, new { @class = "form-control", @checked = "checked" })
+                        @Html.ValidationMessageFor(client => client.activated, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" name="command" value="Save" class="btn btn-default" />
+                        @*<input type="submit" name="command" value="Cancel" class="btn btn-default" />
+                            <input type="submit" name="command" value="Close" class="btn btn-default" />*@
+                    </div>
+                </div>
+
+            </div>          
+        </center>
+        <div class="col-md-4" >
+            @Html.ActionLink("Back to List", "Client", "Client") <div>&nbsp;</div>
+        </div>
+
+    </div>
+}
+
+
+
+
+
+
+

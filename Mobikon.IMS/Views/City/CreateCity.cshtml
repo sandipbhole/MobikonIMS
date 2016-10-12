@@ -1,0 +1,62 @@
+﻿@model Mobikon.IMS.Message.City
+
+@{
+    ViewBag.Title = "Add City";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<script src="/Scripts/modernizr-2.8.3.js"></script>
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script src="/bundles/jquery-ui"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>Add City</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">            
+        <center>   
+            @Html.ValidationSummary(true, "City not saved successfully.", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label(" ", new { @class = "control-label col-md-4" })
+                <div class="col-md-5">
+                    @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(city => city.cityName, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-5">
+                    @Html.TextBoxFor(city => city.cityName, new { @class = "form-control", @maxlength = "50", @autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(city => city.cityName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(city => city.countryName, new { @class = "control-label col-md-4" })
+                <div class="col-md-5">
+                    @Html.DropDownListFor(city => city.countryName, ViewBag.countryNameSearch as IEnumerable<SelectListItem>, "Select country", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(city => city.countryName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-10">
+                    @*<input type="submit" name="command" value="Save" onclick="JavascriptFunction();" class="btn btn-default" />*@
+                    <button onclick="JavascriptFunction();">Save</button>
+
+                    @*<input type="submit" name="command" value="Cancel" class="btn btn-default" />
+                        <input type="submit" name="command" value="Close" class="btn btn-default" />*@
+                </div>
+            </div>     
+        </center>
+        <div class="col-md-3">
+            @Html.ActionLink("Back to List", "City", "City") <div>&nbsp;</div>
+        </div>
+    </div>
+}

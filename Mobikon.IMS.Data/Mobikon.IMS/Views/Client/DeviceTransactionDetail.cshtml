@@ -1,0 +1,192 @@
+﻿@model Mobikon.IMS.Message.DeviceTransaction
+
+@{
+    ViewBag.Title = "Device inventory detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-offset-4">
+   <h3 class="col-md-offset-1">Device inventory detail</h3>
+
+
+    <div>
+        @*<h4>Device inventory detail</h4>*@
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.productSerial) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.productSerial)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.deviceDetails) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.deviceDetails)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.clientName) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.clientName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.address) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.cityName) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.cityName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.countryName) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.countryName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.outletName) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.outletName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.deliveryDate) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.deliveryDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.dc) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.dc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.dcDate) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.dcDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.dcFile) :
+            </dt>
+
+            <dd>
+                @Html.ActionLink("Show Delivery Challan", "DisplayPDF", new { filePath = Model.dcFile }, new { target = "_blank" })
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.rdc) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.rdc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.rdcDate) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.rdcDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.hic) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.hic)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.hicDate) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.hicDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.insured) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.insured)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.insuranceClaim) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.insuranceClaim)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.damagedOldDevice) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.damagedOldDevice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.companyOwner) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.companyOwner)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.status) :
+            </dt>
+            <dd>
+                <b> @Html.DisplayFor(deviceTransaction => deviceTransaction.status) </b>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.transferOwnershipDate) :
+            </dt>
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.transferOwnershipDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(deviceTransaction => deviceTransaction.remarks) :
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(deviceTransaction => deviceTransaction.remarks)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+        @Html.ActionLink("Back to History", "Client", "Client")
+    </p>
+</div>

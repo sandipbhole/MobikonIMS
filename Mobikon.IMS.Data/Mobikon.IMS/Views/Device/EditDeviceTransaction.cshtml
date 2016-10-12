@@ -1,0 +1,389 @@
+﻿@model Mobikon.IMS.Message.DeviceTransaction
+
+@{
+    ViewBag.Title = "Edit device transaction";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit device transaction</title>
+</head>
+<body>
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
+    <script src="/Scripts/jquery-2.1.4.js"></script>
+    <script src="/bundles/jquery-ui"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/device.js"></script>
+
+    @using (Html.BeginForm("EditDeviceTransaction", "Device", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        <div class="col-md-12" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">
+            <center>
+                @Html.ValidationSummary(true, "Device transaction not updated successfully.", new { @class = "text-danger" })
+
+                <h3>Edit device transaction</h3>
+                <div class="form-horizontal">
+                    <div class="form-horizontal">
+                        <div class="col-md-6">
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.serialNo)
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.deviceID)
+                            <div class="form-group">
+                                @Html.Label(" ", new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.productSerial, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.productSerial, new { @class = "form-control", @readonly = "readonly" })@*@disabled = "disabled"*@
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.productSerial, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.deviceDetails, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.deviceDetails, new { @class = "form-control", @readonly = "readonly" })@*@disabled = "disabled"*@
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.deviceDetails, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @*clientID*@
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.clientID)
+                            @if (Session["Role"].ToString() == "Operations")
+                            {
+                                @*<div class="form-group">
+                                                        @Html.LabelFor(deviceTransaction => deviceTransaction.clientName, new { @class = "control-label col-md-4" })
+                                                        <div class="col-md-5">
+                                                            @Html.DropDownListFor(deviceTransaction => deviceTransaction.clientName, ViewBag.clientName as SelectList, "Select brand", new { @class = "form-control", @autofocus = "autofocus" })
+                                                            @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientName, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>*@
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.clientName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5 ">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.clientName, new { @class = "form-control", @maxLength = "500", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            @if (Session["Role"].ToString() == "Administrators" )
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.clientName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+
+                                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.clientName, ViewBag.clientName as SelectList, "Select brand", new { @class = "form-control", @autofocus = "autofocus" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.clientCityName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.clientCityName, new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientCityName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.clientCountryName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.clientCountryName, new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientCountryName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.outletID)
+                            @if (Session["Role"].ToString() == "Operations")
+                            {
+                                @*<div class="form-group">
+                                                        @Html.LabelFor(deviceTransaction => deviceTransaction.outletName, new { @class = "control-label col-md-4" })
+                                                        <div class="col-md-5">
+                                                            @Html.DropDownListFor(deviceTransaction => deviceTransaction.outletName, ViewBag.OutletName as SelectList, "Select outlet", new { @class = "form-control"})
+                                                            @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.outletName, "", new { @class = "text-danger" })
+
+                                                        </div>
+                                                    </div>*@
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.outletName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5 ">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.outletName, new { @class = "form-control", @maxLength = "250", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.outletName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            @if (Session["Role"].ToString() == "Administrators")
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.outletName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.outletName, ViewBag.OutletName as SelectList, "Select outlet", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.outletName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.cityID)
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.cityName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.cityName, new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.cityName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.countryID)
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.countryName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.countryName, new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.countryName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @if (Session["Role"].ToString() == "Operations" || Session["Role"].ToString() == "Administrators" )
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.dc, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.dc, new { @class = "form-control", @maxlength = "20" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.dc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.dcDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.dcDate, new { @class = "form-control datepicker", placeholder = "Enter Delivery Challan Date Here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.dcDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Label("Attachment", new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        <input type="file" name="fileUpload" class="form-control" />
+                                    </div>
+                                </div>
+                            }
+                            @if (Session["Role"].ToString() == "Accounts" || Session["Role"].ToString() == "Sales")
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.dc, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.dc, new { @class = "form-control", @maxlength = "20",@readonly="readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.dc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.dcDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.dcDate, new { @class = "form-control", @readonly = "readonly", placeholder = "Enter Delivery Challan date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.dcDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.dcFile))
+                            {
+                                <div class="form-group">
+                                    @Html.DisplayFor(deviceTransaction => deviceTransaction.dcFileName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                    @Html.ActionLink("Show Delivery Challan", "DisplayPDF", new { filePath = Model.dcFile }, new { target = "_blank" })
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.deliveryDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(deviceTransaction => deviceTransaction.deliveryDate, new { @class = "form-control datepicker", @disabled = "disabled", placeholder = "Enter Deployment Date here..." })
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.deliveryDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @if (Session["Role"].ToString() == "Administrators" )
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.rdc, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.rdc, new { @class = "form-control", @maxlength = "20" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.rdc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.rdcDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.rdcDate, new { @class = "form-control datepicker", placeholder = "Enter Returned Delivery Challan Date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.rdcDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.hic, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.hic, new { @class = "form-control", @maxlength = "20" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.hic, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.hicDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.hicDate, new { @class = "form-control datepicker", placeholder = "Enter Hardware Inward Challan Date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.hicDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.insured, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.CheckBoxFor(deviceTransaction => deviceTransaction.insured, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.insured, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.insuranceClaim, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.insuranceClaim, new { @class = "form-control", @maxlength = "25" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.insuranceClaim, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.damagedOldDevice, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.damagedOldDevice, new { @class = "form-control", @maxlength = "25" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.damagedOldDevice, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.transferOwnershipDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.transferOwnershipDate, new { @class = "form-control datepicker", placeholder = "Enter transfer ownership date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.transferOwnershipDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            @if (Session["Role"].ToString() == "Operations")
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.rdc, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.rdc, new { @class = "form-control", @readonly = "readonly", @maxlength = "20" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.rdc, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.rdcDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.rdcDate, new { @class = "form-control datepicker", @readonly = "readonly", placeholder = "Enter Returned Delivery Challan date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.rdcDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.hic, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.hic, new { @class = "form-control", @readonly = "readonly", @maxlength = "20" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.hic, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.hicDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.hicDate, new { @class = "form-control datepicker", @readonly = "readonly", placeholder = "Enter Hardware Inward Challan date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.hicDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.insured, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.CheckBoxFor(deviceTransaction => deviceTransaction.insured, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.insured, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.insuranceClaim, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.insuranceClaim, new { @class = "form-control", @readonly = "readonly", @maxlength = "25" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.insuranceClaim, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.damagedOldDevice, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.damagedOldDevice, new { @class = "form-control", @readonly = "readonly", @maxlength = "25" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.damagedOldDevice, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.transferOwnershipDate, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.transferOwnershipDate, new { @class = "form-control datepicker", @readonly = "readonly", placeholder = "Enter transfer ownership date here..." })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.transferOwnershipDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="form-group">
+                                @Html.LabelFor(deviceTransaction => deviceTransaction.companyOwner, new { @class = "control-label col-md-4" })
+                                <div class="col-md-5">
+                                    @Html.DropDownListFor(device => device.companyOwner, ViewBag.companyOwner as SelectList, new { @class = "form-control", @disabled = "disabled" })
+                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.companyOwner, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @Html.HiddenFor(deviceTransaction => deviceTransaction.statusID)
+                            @if (Session["Role"].ToString() == "Accounts" || Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Sales")
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.status, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.status, ViewBag.statusName as IEnumerable<SelectListItem>, "Select status", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(deviceTransaction => deviceTransaction.remarks, htmlAttributes: new { @class = "control-label col-md-4" })
+                                                <div class="col-md-5">
+                                                    @Html.TextAreaFor(deviceTransaction => deviceTransaction.remarks, new { @class = "form-control", @maxlength = "5000" })
+                                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.remarks, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                            }
+                            @if (Session["Role"].ToString() == "Operations")
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.status, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.status, ViewBag.statusName as IEnumerable<SelectListItem>, "Select status", new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(deviceTransaction => deviceTransaction.remarks, htmlAttributes: new { @class = "control-label col-md-4" })
+                                                <div class="col-md-5">
+                                                    @Html.TextAreaFor(deviceTransaction => deviceTransaction.remarks, new { @class = "form-control", @readonly = "readonly", @maxlength = "5000" })
+                                                    @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.remarks, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" name="command" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+            <div class="col-md-3">
+                @Html.ActionLink("Back to List", "DeviceTransaction", "Device")<div>&nbsp;</div>
+            </div>
+        </div>
+    }
+
+    @section Scripts
+        {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

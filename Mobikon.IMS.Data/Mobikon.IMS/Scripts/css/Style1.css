@@ -1,0 +1,39 @@
+﻿.loginClass{
+     border:solid 1px #eee;
+     width:65%;
+     border-radius:4px;
+     background :#0E85C8;
+}
+.loginClass1{
+    width: 65%;
+    border-radius: 4px;
+}
+#labelSpace{
+
+    margin-right:5px;
+}
+#checkheight{
+    height:20px;
+}
+#relative1 {
+    position: relative;
+    left: 130px;
+    
+}
+.Color1{
+
+    color :white;
+}
+.padding1{
+     padding-left:100px;
+}
+.color2{
+    color:#0E85C8;
+}
+#Color3{
+
+    color :white;
+}
+
+
+

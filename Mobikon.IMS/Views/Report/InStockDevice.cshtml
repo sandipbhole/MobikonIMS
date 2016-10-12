@@ -1,0 +1,107 @@
+﻿@model Mobikon.IMS.Message.DeviceTransaction
+
+@{
+    ViewBag.Title = "In Stock Device Report";
+}
+
+
+<script src="/Scripts/modernizr-2.8.3.js"></script>
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script src="/bundles/jquery-ui"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/deviceHistoryReport.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>In Stock Device Report</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;background-color: #fff;border: solid 1px #808080;">
+        <center>
+            <div>&nbsp;</div>
+            <div class="form-horizontal">
+                @Html.HiddenFor(deviceTransaction => deviceTransaction.deviceID)
+                <div class="form-group">
+                    @Html.LabelFor(deviceTransaction => deviceTransaction.productSerial, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.productSerial, ViewBag.productSerial as SelectList, new { @class = "form-control", @autofocus = "autofocus" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(deviceTransaction => deviceTransaction.deviceDetails, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.deviceDetails, ViewBag.deviceDetails as string, new { @class = "form-control" })
+                    </div>
+                </div>
+                @*clientID*@
+                @Html.HiddenFor(deviceTransaction => deviceTransaction.clientID)
+                <div class="form-group">
+                    @Html.LabelFor(deviceTransaction => deviceTransaction.clientName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.clientName, ViewBag.clientName as SelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                @Html.HiddenFor(deviceTransaction => deviceTransaction.outletID)
+                <div class="form-group">
+                    @Html.LabelFor(deviceTransaction => deviceTransaction.outletName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.outletName, ViewBag.outletName as SelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+                @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Accounts")
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(deviceTransaction => deviceTransaction.userName, new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.DropDownListFor(deviceTransaction => deviceTransaction.userName, ViewBag.userNameList as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+                @if (Session["Role"].ToString() == "Sales" || Session["Role"].ToString() == "Operations")
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(deviceTransaction => deviceTransaction.userName, new { @class = "control-label col-md-4" })
+                        <div class="col-md-5">
+                            @Html.TextBox(Session["UserName"].ToString(), Session["UserName"].ToString(), new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <table>
+                        <tr>
+                            <td><b>From Date</b></td>
+                            <td>&nbsp &nbsp &nbsp &nbsp</td>
+                            <td><b>To Date</b></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.TextBoxFor(deviceTransaction => deviceTransaction.fromDate, new { @class = "form-control datepicker", placeholder = "Enter from date here..." })
+                            </td>
+                            <td>&nbsp &nbsp &nbsp &nbsp</td>
+                            <td>
+                                @Html.TextBoxFor(deviceTransaction => deviceTransaction.toDate, new { @class = "form-control datepicker", placeholder = "Enter to date here..." })
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" name="command" value="Export to Excel" class="btn btn-default" />
+                        <input type="submit" name="command" value="Export to PDF" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </center>
+        <div class="col-md-3">
+            @Html.ActionLink("Back to Device Inventory List", "DeviceTransaction", "Device")<div>&nbsp;</div>
+        </div>
+    </div>
+}

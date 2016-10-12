@@ -1,0 +1,66 @@
+﻿@model Mobikon.IMS.Message.Outlet
+
+@{
+    ViewBag.Title = "Outlet Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="/Scripts/modernizr-2.8.3.js"></script>
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script src="/bundles/jquery-ui"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/outlet.js"></script>
+
+@using (Html.BeginForm())
+{
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>Outlet Report</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;background-color: #fff;border: solid 1px #808080;">       
+        <center>
+            @Html.AntiForgeryToken()
+            <div>&nbsp;</div>    
+            <div class="form-horizontal">
+                @Html.HiddenFor(outlet => outlet.outletID)
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.outletName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5 ">
+                        @Html.DropDownListFor(outlet => outlet.outletName, ViewBag.outletName as SelectList, new { @class = "form-control", @autofocus = "autofocus" })
+
+                    </div>
+                </div>                        
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.clientName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(outlet => outlet.clientName, ViewBag.clientName as SelectList, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.activated, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.CheckBoxFor(outlet => outlet.activated, new { @checked = "checked" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Export to Excel" name="command" class="btn btn-default" />
+                        <input type="submit" value="Export to PDF" name="command" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }
+        </center>
+        <div class="col-md-3">
+            @Html.ActionLink("Back to Outlet List", "Outlet")<div>&nbsp;</div>
+        </div>
+    </div>
+}

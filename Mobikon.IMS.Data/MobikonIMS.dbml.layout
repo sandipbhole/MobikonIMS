@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14.25, 11.375" name="MobikonIMS">
+  <DataContextMoniker Name="/MobikonIMSDataContext" />
+  <nestedChildShapes>
+    <classShape Id="83dd72eb-ab6e-4542-8d02-47a26af6e992" absoluteBounds="3.5, 1, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/MobikonIMSDataContext/CITY" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9f3bbe7a-6793-4309-9900-299994155f5f" absoluteBounds="3.515, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="789a9732-5fd7-444d-a102-0e3e26bc3b5c" absoluteBounds="3.5, 7.125, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/MobikonIMSDataContext/CLIENT" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad9b64c3-8bdf-47c6-99b2-7d3da5c2b2a0" absoluteBounds="3.515, 7.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fe829746-ee27-42a1-9ae2-bcfa2642c743" absoluteBounds="0.75, 1, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/MobikonIMSDataContext/COUNTRY" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a824c4fb-8a58-436c-9cd8-8cde10beaf6d" absoluteBounds="0.765, 1.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9817d410-3c60-4aaa-ae1e-64d75586b120" absoluteBounds="9.25, 3.625, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/MobikonIMSDataContext/DEVICE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48a6a7f8-288d-4bff-9377-b4f4b48d9ac4" absoluteBounds="9.265, 4.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ef3d4b72-1597-4a20-82b3-36e699b901fe" absoluteBounds="12, 2.75, 2, 4.6554182942708326">
+      <DataClassMoniker Name="/MobikonIMSDataContext/DEVICETRANSACTION" />
+      <nestedChildShapes>
+        <elementListCompartment Id="450ea51d-d565-420b-aaf9-e501d0a44bc4" absoluteBounds="12.015, 3.21, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d36fdd72-7c87-4565-8d1d-8dfc62c93633" absoluteBounds="6.75, 7.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/MobikonIMSDataContext/DEVICETYPE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="95797b88-2587-4189-84f9-7e8c47550b80" absoluteBounds="6.765, 8.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4dc4e166-6458-461f-9a36-836818eab209" absoluteBounds="6.25, 3.875, 2, 2.3478011067708331">
+      <DataClassMoniker Name="/MobikonIMSDataContext/OUTLET" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b3428233-053c-4e1d-8373-0dd2c0c8aab8" absoluteBounds="6.265, 4.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7cc6b310-c8e2-46e9-acd1-ab6b3200d0c5" absoluteBounds="0.75, 4.375, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/MobikonIMSDataContext/ROLE" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae5ed267-bd8b-4263-aeed-8cb8f1081240" absoluteBounds="0.765, 4.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e96c1b6a-4b88-4e23-987f-66fb6753d8c2" absoluteBounds="6.75, 9.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/MobikonIMSDataContext/SETTING" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e510e0d5-b0d2-4497-aff6-3d6e67dc7870" absoluteBounds="6.765, 10.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a61109f-1ce0-422e-ad3b-3450efea2555" absoluteBounds="6.5, 1.375, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/MobikonIMSDataContext/STATUS" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2cd5fcdc-f084-4b1a-a981-d44a253c701b" absoluteBounds="6.515, 1.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="00b374e4-1623-4bae-bb7f-9646f63aac22" absoluteBounds="3.5, 3.875, 2, 2.3478011067708331">
+      <DataClassMoniker Name="/MobikonIMSDataContext/USER" />
+      <nestedChildShapes>
+        <elementListCompartment Id="21a35a3f-7515-43fb-815e-5e4bc80f00fd" absoluteBounds="3.515, 4.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.59699625651042); (3.5 : 1.59699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/COUNTRY/COUNTRY_CITY" />
+      <nodes>
+        <classShapeMoniker Id="fe829746-ee27-42a1-9ae2-bcfa2642c743" />
+        <classShapeMoniker Id="83dd72eb-ab6e-4542-8d02-47a26af6e992" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.25 : 5.08735270182292); (12 : 5.08735270182292)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/DEVICE/DEVICE_DEVICETRANSACTION" />
+      <nodes>
+        <classShapeMoniker Id="9817d410-3c60-4aaa-ae1e-64d75586b120" />
+        <classShapeMoniker Id="ef3d4b72-1597-4a20-82b3-36e699b901fe" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 1.15625); (6.34375 : 1.15625); (6.34375 : 3.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/CITY/CITY_OUTLET" />
+      <nodes>
+        <classShapeMoniker Id="83dd72eb-ab6e-4542-8d02-47a26af6e992" />
+        <classShapeMoniker Id="4dc4e166-6458-461f-9a36-836818eab209" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.40625); (6.46875 : 7.40625); (6.46875 : 6.22280110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/CLIENT/CLIENT_OUTLET" />
+      <nodes>
+        <classShapeMoniker Id="789a9732-5fd7-444d-a102-0e3e26bc3b5c" />
+        <classShapeMoniker Id="4dc4e166-6458-461f-9a36-836818eab209" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.40625 : 2.7612939453125); (8.40625 : 6.41750325520833); (9.25 : 6.41750325520833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/STATUS/STATUS_DEVICE" />
+      <nodes>
+        <classShapeMoniker Id="1a61109f-1ce0-422e-ad3b-3450efea2555" />
+        <classShapeMoniker Id="9817d410-3c60-4aaa-ae1e-64d75586b120" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 2.0624995); (13 : 2.0624995); (13 : 2.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/STATUS/STATUS_DEVICETRANSACTION" />
+      <nodes>
+        <classShapeMoniker Id="1a61109f-1ce0-422e-ad3b-3450efea2555" />
+        <classShapeMoniker Id="ef3d4b72-1597-4a20-82b3-36e699b901fe" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 6.22280110677083); (4.5 : 6.51485682942708); (9.25 : 6.51485682942708)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/USER/USER_DEVICE" />
+      <nodes>
+        <classShapeMoniker Id="00b374e4-1623-4bae-bb7f-9646f63aac22" />
+        <classShapeMoniker Id="9817d410-3c60-4aaa-ae1e-64d75586b120" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 5.04890055338542); (6.25 : 5.04890055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/USER/USER_OUTLET" />
+      <nodes>
+        <classShapeMoniker Id="00b374e4-1623-4bae-bb7f-9646f63aac22" />
+        <classShapeMoniker Id="4dc4e166-6458-461f-9a36-836818eab209" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.06814697265625); (3.5 : 5.06814697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MobikonIMSDataContext/ROLE/ROLE_USER" />
+      <nodes>
+        <classShapeMoniker Id="7cc6b310-c8e2-46e9-acd1-ab6b3200d0c5" />
+        <classShapeMoniker Id="00b374e4-1623-4bae-bb7f-9646f63aac22" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,139 @@
+﻿@model Mobikon.IMS.Message.DeviceTransaction
+
+@{
+    ViewBag.Title = "Unblock device";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>unblock device</title>
+</head>
+<body>
+    <script src="/Scripts/modernizr-2.8.3.js"></script>
+    <script src="/Scripts/jquery-2.1.4.js"></script>
+    <script src="/bundles/jquery-ui"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/device.js"></script>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+            <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">
+                <center><h3>Block Device</h3></center>
+                <center>
+                    @Html.ValidationSummary(true, "Device not unblocked successfully.", new { @class = "text-danger" })
+                   
+                        <div class="form-horizontal">
+                            <div class="form-horizontal">
+                                @Html.HiddenFor(deviceTransaction => deviceTransaction.deviceID)
+                                <div class="form-group">
+                                    @Html.Label(" ", new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.productSerial, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.productSerial, new { @class = "form-control", @readonly = "readonly" })@*@disabled = "disabled"*@
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.productSerial, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.deviceDetails, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.deviceDetails, new { @class = "form-control", @disabled = "disabled" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.deviceDetails, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @*clientID*@
+                                @Html.HiddenFor(deviceTransaction => deviceTransaction.clientID)
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.clientName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.clientName, ViewBag.clientName as IEnumerable<SelectListItem>, "Select client/account name", new { @class = "form-control", @autofocus = "autofocus" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.clientCityName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.clientCityName, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientCityName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.clientCountryName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.clientCountryName, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.clientCountryName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(deviceTransaction => deviceTransaction.outletID)
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.outletName, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.DropDownListFor(deviceTransaction => deviceTransaction.outletName, ViewBag.OutletName as IEnumerable<SelectListItem>, "Select outlet", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.outletName, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(deviceTransaction => deviceTransaction.cityID)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.cityName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.cityName, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.cityName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(deviceTransaction => deviceTransaction.countryID)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.countryName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.countryName, new { @class = "form-control", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.countryName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.status, new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextBoxFor(deviceTransaction => deviceTransaction.status, new { @class = "form-control", @Value = "In Stock", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(deviceTransaction => deviceTransaction.remarks, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-5">
+                                        @Html.TextAreaFor(deviceTransaction => deviceTransaction.remarks, new { @class = "form-control", @maxlength = "5000" })
+                                        @Html.ValidationMessageFor(deviceTransaction => deviceTransaction.remarks, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-1 col-md-10">
+                                        <input type="submit" name="command" value="Save" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </center>
+                <div class="col-md-3">
+                    @Html.ActionLink("Back to List", "DeviceTransaction", "Device")<div>&nbsp;</div>
+                </div>
+                    </div>
+                    }
+                   
+                    @section Scripts
+        {
+                        @Scripts.Render("~/bundles/jqueryval")
+                    }
+        </body>
+</html>

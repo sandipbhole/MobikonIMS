@@ -1,0 +1,196 @@
+﻿@*@model DotNet.Highcharts.Highcharts
+
+@{
+    ViewBag.Title = "Pie chart";
+}
+
+@(Model)*@
+@model PagedList.IPagedList<Mobikon.IMS.Message.DeviceTransaction>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Device Inventory Dashboard";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Device Inventory Dashboard</title>
+    </head>
+    <body>
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/deviceHistoryReport.js"></script>
+        @using (Html.BeginForm("MobikonIMS", "MobikonIMS", FormMethod.Get))
+        {
+            <div>&nbsp;</div>
+            <center>
+                <h5>
+                    <strong>Device Inventory Dashboard</strong>
+                </h5>
+            </center>
+            @*<div style="border-radius: 5px; vertical-align:central; width:1250px;background-color: #fff;border: solid 1px #808080;">
+                <div class="filtering">
+                    <div class="container">
+                        <div class="row">
+                            <div class="brnd col-md-1">
+                                <h5>From Date:</h5>
+                                @Html.TextBox("fromDateSearch", ViewBag.fromDateSearch as SelectList, new { @class = "form-control datepicker", placeholder = "Enter from date here..." })
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>To Date:</h5>
+                                @Html.TextBox("toDateSearch", ViewBag.toDateSearch as string, new { @class = "form-control datepicker", placeholder = "Enter to date here..." })
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>&nbsp;</h5>
+                                <input type="submit" value="Search" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+            </div>*@
+        }
+        <div style="border-radius: 5px;vertical-align:central; width:1250px;background-color: #fff;border: solid 1px #808080;">
+            <div class="container">
+                <div>&nbsp;</div>
+                <div>
+                    <table class="table table-striped" data-search="true" style="border:solid 1px #ddd;background-color:lightyellow">
+
+                        <tr>
+                            <th>
+                                @*@Html.ActionLink("Status", "MobikonIMS", new { sortOrder = ViewBag.statusSort, statusFilter = ViewBag.statusFilter })*@
+                                Status
+                            </th>
+                            <th> Count </th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var deviceTransaction in Model)
+                        {
+                            <tr>   
+                                @if (deviceTransaction.status == "Deployed-Active")
+                                {
+                                    <td style="color:black">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Internal Use")
+                                {
+                                    <td style="color:lightgreen">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "In Stock")
+                                {
+                                    <td style="color:orange">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }                           
+                                @if (deviceTransaction.status == "Blocked")
+                                {
+                                    <td style="color:purple">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Damaged")
+                                {
+                                    <td style="color:Highlight">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Sold/Written Off")
+                                {
+                                    <td style="color:red">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Suspense/Lost")
+                                {
+                                    <td style="color:Green">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Collected from Client under Testing")
+                                {
+                                    <td style="color:black">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "De-Activate")
+                                {
+                                    <td style="color:black">
+                                        @Html.DisplayFor(device => deviceTransaction.status)
+                                    </td>
+                                }
+                                @*deviceCount*@
+                               @if (deviceTransaction.status == "Deployed-Active")
+                               {
+                                <td style="color:black">
+                                    @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                </td>
+                               }
+                                @if (deviceTransaction.status == "Internal Use")
+                                {
+                                    <td style="color:lightgreen">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "In Stock")
+                                {
+                                    <td style="color:orange">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Blocked")
+                                {
+                                    <td style="color:purple">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Damaged")
+                                {
+                                    <td style="color:Highlight">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Sold/Written Off")
+                                {
+                                    <td style="color:red">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Suspense/Lost")
+                                {
+                                    <td style="color:Green">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "Collected from Client under Testing")
+                                {
+                                    <td style="color:black">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                @if (deviceTransaction.status == "De-Activate")
+                                {
+                                    <td style="color:black">
+                                        @Html.DisplayFor(device => deviceTransaction.deviceCount)
+                                    </td>
+                                }
+                                <td>
+                                @Html.ActionLink("Show", "ShowDevices", "Device", new { statusSearch = deviceTransaction.status },null)
+                                </td>
+                            </tr>                         
+                        }
+                    </table>
+                </div>
+                @Html.PagedListPager(Model, page => Url.Action("MobikonIMS", new { page, sortOrder = ViewBag.currentSort, statusFilter = ViewBag.statusFilter, fromDateFilter = ViewBag.fromDateFilter, toDateFilter = ViewBag.toDateFilter, cityNameFilter = ViewBag.cityNameFilter, deviceTypeFilter = ViewBag.deviceTypeFilter, paging = ViewBag.paging }))
+            </div>
+        </div>
+    </body>
+</html>

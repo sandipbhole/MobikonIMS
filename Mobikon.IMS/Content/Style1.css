@@ -1,0 +1,25 @@
+﻿body {
+}
+
+.centertxt {
+    text-align: center;
+}
+
+.border {
+    border: solid 2px #808080;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #eee;
+}
+
+.border1 {
+    border-radius: 5px;
+    text-align: center;
+    background-color: #fff;
+    border: solid 1px #808080;
+}
+
+#chkbox {
+    height: 20px;
+    width: 20px;
+}

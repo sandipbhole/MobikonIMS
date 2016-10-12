@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<link rel="shortcut icon" type="image/ico" href="~/Images/favicon.ico">
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title-MobikonIMS</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        <script type="text/javascript">
+            var appInsights=window.appInsights||function(config){
+                function s(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},r=document,f=window,e="script",o=r.createElement(e),i,u;for(o.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",r.getElementsByTagName(e)[0].parentNode.appendChild(o),t.cookie=r.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace"];i.length;)s("track"+i.pop());return config.disableExceptionTracking||(i="onerror",s("_"+i),u=f[i],f[i]=function(config,r,f,e,o){var s=u&&u(config,r,f,e,o);return s!==!0&&t["_"+i](config,r,f,e,o),s}),t
+            }({
+                instrumentationKey:"615aadc5-8508-46e7-aa93-713181a155ae"
+            });
+
+            window.appInsights=appInsights;
+            appInsights.trackPageView();
+        </script>
+    </head>
+    <body style="background-color:#eee;">
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="/Scripts/Highcharts-4.0.1/js/highcharts-all.js"></script>
+        <script src="/Scripts/Highcharts-4.0.1/js/modules/funnel.js"></script>
+
+        <div class="navbar navbar-user navbar-user-top">
+            <div style="float:right;">
+                @Html.Label("", (string)ViewBag.userName, new { style = "color:white;text-alignment=left;" })        
+            </div>
+            <div style="float:left;">
+                @Html.Label("", (string)ViewBag.menuName, new { style = "color:white;text-alignment=right;" })
+            </div>
+        </div>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <img src="~/Images/mobikon-logo.png" width="150" height="40">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>  
+                        <span class="icon-bar"></span>    
+                        <span class="icon-bar"></span>                        
+                    </button>
+                </div>
+               
+                @if (Session["Role"].ToString() == "Administrators")
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "MobikonIMS", "MobikonIMS")</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownClientMenu" data-toggle="dropdown">Brand</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownClientMenu">
+                                    <li>@Html.ActionLink("Brand list", "Client", "Client")</li>
+                                    <li>@Html.ActionLink("Add Brand", "CreateClient", "Client")</li>
+                                    @*<li>@Html.ActionLink("Edit Brand", "UpdateClient", "Client")</li>*@
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownOutletMenu" data-toggle="dropdown">Outlet</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownOutletMenu">
+                                    <li>@Html.ActionLink("Outlet list", "Outlet", "Outlet")</li>
+                                    <li>@Html.ActionLink("Add outlet", "CreateOutlet", "Outlet")</li>
+                                    @*<li>@Html.ActionLink("Edit outlet", "UpdateOutlet", "Outlet")</li>*@
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownCityMenu" data-toggle="dropdown">City</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCityMenu">
+                                    <li>@Html.ActionLink("City list", "City", "City")</li>
+                                    <li>@Html.ActionLink("Add City", "CreateCity", "City")</li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownDeviceMenu" data-toggle="dropdown">Device</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownDeviceMenu">
+                                    <li>@Html.ActionLink("Device list", "Device", "Device")</li>
+                                    <li>@Html.ActionLink("Add Device", "CreateDevice", "Device")</li>
+                                    @*<li>@Html.ActionLink("Edit Device", "UpdateDevice", "Device")</li>*@
+                                    @*<li>@Html.ActionLink("Sold Devices", "SoldDevice", "Device")</li>*@
+                                </ul>
+                            </li>
+                            <!-- DropDown example -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownInventoryMenu" data-toggle="dropdown">Inventory</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownInventoryMenu">
+                                    <li>@Html.ActionLink("Device Inventory List", "DeviceTransaction", "Device")</li>
+                                    <li>@Html.ActionLink("Create Device Inventory", "CreateDeviceTransaction", "Device")</li>                                    
+                                </ul>
+                            </li>
+                            <!-- DropDown example -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownReportMenu" data-toggle="dropdown">Report</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownReportMenu">
+                                    <li>@Html.ActionLink("Device History", "DeviceHistory", "Report")</li>
+                                    <li>@Html.ActionLink("Outlet", "Outlet", "Report")</li>
+                                    <li>@Html.ActionLink("Device", "Device", "Report")</li>
+                                </ul>
+                            </li>
+                            <!-- DropDown example -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownUserManagementMenu" data-toggle="dropdown">User Management</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownUserManagementMenu">
+                                    <li>@Html.ActionLink("User list", "Users", "Login")</li>
+                                    <li>@Html.ActionLink("Register", "Register", "Login")</li>
+                                    @*<li>@Html.ActionLink("Reset Password", "ResetPassword", "Login")</li>*@
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Login")</li>
+                            <li>@Html.ActionLink("Log Out", "Logout", "MobikonIMS")</li>
+                        </ul>
+                    </div>                   
+                }
+                @if (Session["Role"].ToString() == "Accounts")
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "MobikonIMS", "MobikonIMS")</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownClientnMenu" data-toggle="dropdown">Brand</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownClientMenu">
+                                    <li>@Html.ActionLink("Brand list", "Client", "Client")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownOutletMenu" data-toggle="dropdown">Outlet</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownOutletMenu">
+                                    <li>@Html.ActionLink("Outlet list", "Outlet", "Outlet")</li>
+                                </ul>
+                            </li>
+                            @*<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" id="dropdownCityMenu" data-toggle="dropdown">City</a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCityMenu">
+                            <li>@Html.ActionLink("City list", "City", "City")</li>
+                        </ul>
+                    </li>*@
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownDeviceMenu" data-toggle="dropdown">Device</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownDeviceMenu">
+                                    <li>@Html.ActionLink("Device list", "Device", "Device")</li>
+                                </ul>
+                            </li>
+                            <!-- DropDown example -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownInventoryMenu" data-toggle="dropdown">Inventory</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownInventoryMenu">
+                                    <li>@Html.ActionLink("Device Inventory List", "DeviceTransaction", "Device")</li>
+                                </ul>
+                            </li>
+                            <!-- DropDown example -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownRepotMenu" data-toggle="dropdown">Report</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownReportMenu">
+                                    <li>@Html.ActionLink("Device History", "DeviceHistory", "Report")</li>
+                                    <li>@Html.ActionLink("Outlet", "Outlet", "Report")</li>
+                                    <li>@Html.ActionLink("Device", "Device", "Report")</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Login")</li>
+                            <li>@Html.ActionLink("Log Out", "Logout", "MobikonIMS")</li>
+                        </ul>
+                    </div>
+                }
+                @if (Session["Role"].ToString() == "Operations")
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "MobikonIMS", "MobikonIMS")</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownClientMenu" data-toggle="dropdown">Brand</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownClientMenu">
+                                    <li>@Html.ActionLink("Brand List", "Client", "Client")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownCommonMenu" data-toggle="dropdown">Outlet</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu">
+                                    <li>@Html.ActionLink("Outlet List", "Outlet", "Outlet")</li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownCityMenu" data-toggle="dropdown">City</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCityMenu">
+                                    <li>@Html.ActionLink("City list", "City", "City")</li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownDeviceMenu" data-toggle="dropdown">Device</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownDeviceMenu">
+                                    <li>@Html.ActionLink("Device List", "Device", "Device")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownInventoryMenu" data-toggle="dropdown">Inventory</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownInventoryMenu">
+                                    <li>@Html.ActionLink("Device Inventory List", "DeviceTransaction", "Device")</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Login")</li>
+                            <li>@Html.ActionLink("Log Out", "Logout", "MobikonIMS")</li>
+                        </ul>
+                    </div>
+                }
+                @if (Session["Role"].ToString() == "Sales")
+                {
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Home", "MobikonIMS", "MobikonIMS")</li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownDeviceMenu" data-toggle="dropdown">Device</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownDeviceMenu">
+                                    <li>@Html.ActionLink("Device List", "Device", "Device")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" id="dropdownInventoryMenu" data-toggle="dropdown">Inventory</a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownInventoryMenu">
+                                    <li>@Html.ActionLink("Device Inventory List", "DeviceTransaction", "Device")</li>
+                                </ul>
+                            </li>
+                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Login")</li>
+                            <li>@Html.ActionLink("Log Out", "Logout", "MobikonIMS")</li>
+                        </ul>
+                    </div>
+                }                
+            </div>
+        </div>
+        <div class="container-fluid body-content">
+            @RenderBody()
+            <footer class="col-md-offset-1">
+                <div class="container body-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>&copy; @DateTime.Now.Year-Clay Systems & Services</p>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-1">
+                            @Html.ActionLink("About Us", "Contact", "MobikonIMS")
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

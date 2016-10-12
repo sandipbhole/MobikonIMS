@@ -1,0 +1,98 @@
+﻿@model Mobikon.IMS.Message.Outlet
+
+@{
+    ViewBag.Title = "Add outlet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="/Scripts/modernizr-2.8.3.js"></script>
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script src="/bundles/jquery-ui"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/outlet.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>Add Outlet</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-1 col-md-10" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">       
+        <center>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "Outlet not saved successfully.", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.Label(" ", new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.Label("", (string)ViewBag.message, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.outletName, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(outlet => outlet.outletName, new { @class = "form-control", @maxlength = "500", @autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(outlet => outlet.outletName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.address, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextAreaFor(outlet => outlet.address, new { @class = "form-control", @maxlength = "5000" })
+                        @Html.ValidationMessageFor(outlet => outlet.address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.countryName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(client => client.countryName, ViewBag.countryName as IEnumerable<SelectListItem>, "Select country", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(client => client.countryName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.cityName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(client => client.cityName, ViewBag.cityName as IEnumerable<SelectListItem>, "Select city", new { @class = "form-control", @disable = "disable" })
+                        @Html.ValidationMessageFor(client => client.cityName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.clientName, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownList("clientName", new SelectList(ViewBag.clientName, "Value", "Text"), "Select client name", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(client => client.clientName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(outlet => outlet.activated, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.CheckBoxFor(outlet => outlet.activated, new { @checked = "checked", @class = "form-control", id = "chkbox" })
+                        @Html.ValidationMessageFor(outlet => outlet.activated, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" name="command" value="Save" class="btn btn-default" />
+                        @*<input type="submit" name="command" value="Cancel" class="btn btn-default" />
+                            <input type="submit" name="command" value="Close" class="btn btn-default" />*@
+                    </div>
+                </div>
+            </div>
+        </center>
+        <div class="col-md-3">
+            @Html.ActionLink("Back to List", "Outlet", "Outlet")<div>&nbsp;</div>
+        </div>
+    </div>
+}

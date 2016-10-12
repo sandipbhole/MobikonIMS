@@ -1,0 +1,132 @@
+﻿@model PagedList.IPagedList<Mobikon.IMS.Message.Outlet>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Outlet list";   
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Outlet List</title>
+        </head>
+    <body>
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/outlet.js"></script>
+        @using (Html.BeginForm("Outlet", "Outlet", FormMethod.Get))
+        {
+            <div>&nbsp;</div>
+            <center>
+                <h5>
+                    <strong>Outlet List</strong>
+                </h5>
+            </center>
+            <div style="border-radius: 5px;vertical-align:central;width:1250px;background-color: #fff;border: solid 1px #808080;">
+                <div class="filtering">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="brnd col-md-2">
+                                <h5>Brand:</h5>
+                                @Html.TextBox("clientNameSearch", ViewBag.clientNameFilter as string, new {@class = "form-control", @autofocus = "autofocus" })
+                            </div>
+                            <div class="brnd col-md-2">
+                                <h5>Outlet:</h5>
+                                @Html.TextBox("outletNameSearch", ViewBag.outletNameFilter as string, new { @class = "form-control" })
+                            </div>
+                            <div class="brnd col-md-2">
+                                <h5>City:</h5>
+                                @Html.DropDownList("cityNameSearch", ViewBag.cityNameSearch as SelectList, ViewBag.cityNameFilter as string, new { @class = "form-control" })
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>Status:</h5>
+                                @Html.CheckBox("statusOutletSearch", true, ViewBag.CurrentFilter as string)
+                            </div>
+                            <div class="brnd col-md-1">
+                                <h5>&nbsp;</h5>
+                                <input type="submit" value="Search" class="btn btn-default" />
+                            </div>
+                            <div class="brnd col-md-2">
+                                <h5>&nbsp;</h5>                                
+                                @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Operations")
+                                {
+                                    @Html.ActionLink("Add Outlet", "CreateOutlet",null, new { @class = "btn btn-default" })
+                                }                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>&nbsp; </div>
+            </div>
+        }
+        <div style="border-radius: 5px; vertical-align:central; width:1250px;background-color: #fff;border: solid 1px #808080;">
+            <div>&nbsp; </div>
+            <div class="container-fluid">
+                <div>
+                    <table class="table table-striped" data-search="true" style="border:solid 1px #ddd;background-color:lightyellow">
+                        <tr>
+                            <th>
+                                @Html.ActionLink("Brand", "Outlet", new { sortOrder = ViewBag.clientNameSort, clientNameFilter = ViewBag.clientNameFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Outlet", "Outlet", new { sortOrder = ViewBag.outletNameSort, outletNameFilter = ViewBag.outletNameFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("City", "Outlet", new { sortOrder = ViewBag.cityNameSort, cityNameFilter = ViewBag.cityNameFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Country", "Outlet", new { sortOrder = ViewBag.countryNameSort, countryNameFilter = ViewBag.countryNameFilter })
+                            </th>
+
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(device => item.clientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(device => item.outletName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(device => item.cityName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(device => item.countryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(device => item.activated)
+                                </td>
+                                @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Operations")
+                                    {
+                                    <td>
+                                        @Html.ActionLink("Edit", "EditOutlet", new { outletID = item.outletID, statusOutlet = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                        @Html.ActionLink("Details", "OutletDetails", new { outletID = item.outletID, statusOutlet = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                        @Html.ActionLink("History", "DeviceHistory", new { outletNameSearch = item.outletName, cityNameSearch = item.cityName, countryNameSearch = item.countryName, clientNameSearch = item.clientName })
+                                    </td>
+                                    }
+                                @if (Session["Role"].ToString() == "Sales" || Session["Role"].ToString() == "Accounts")
+                                    {
+                                    <td>
+                                        @Html.ActionLink("Details", "OutletDetails", new { outletID = item.outletID, statusOutlet = item.activated }) @Html.DisplayFor(device => item.seperator)
+                                        @Html.ActionLink("History", "DeviceHistory", new { outletNameSearch = item.outletName, cityNameSearch = item.cityName, countryNameSearch = item.countryName, clientNameSearch = item.clientName })
+                                    </td>
+                                    }
+                            </tr>
+                            }
+                    </table>
+                </div>              
+                @Html.PagedListPager(Model, page => Url.Action("Outlet", new { page, sortOrder = ViewBag.currentSort, clientNameFilter = ViewBag.clientNameFilter, outletNameFilter = ViewBag.outletNameFilter, countryNameFilter = ViewBag.countryNameFilter, cityNameFilter = ViewBag.cityNameFilter, paging = ViewBag.paging }))
+            </div>
+        </div>
+    </body>
+</html>
+

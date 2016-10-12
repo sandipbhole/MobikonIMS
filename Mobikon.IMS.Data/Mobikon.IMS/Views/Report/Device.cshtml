@@ -1,0 +1,62 @@
+﻿@model Mobikon.IMS.Message.Device
+
+@{
+    ViewBag.Title = "Device Report";
+}
+
+<script src="/Scripts/modernizr-2.8.3.js"></script>
+<script src="/Scripts/jquery-2.1.4.js"></script>
+<script src="/bundles/jquery-ui"></script>
+<script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/deviceHistoryReport.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <br />
+    <center>
+        <h5>
+            <strong>Device Report</strong>
+        </h5>
+    </center>
+    <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;background-color: #fff;border: solid 1px #808080;">        
+        <center>
+            <div>&nbsp;</div>           
+            <div class="form-horizontal">
+                @Html.HiddenFor(device => device.deviceID)
+                <div class="form-group">
+                    @Html.LabelFor(device => device.productSerial, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(device => device.productSerial, ViewBag.productSerial as SelectList, new { @class = "form-control", @autofocus = "autofocus" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(device => device.deviceDetails, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(device => device.deviceDetails, new { @class = "form-control", @Value = "All", @maxlength = "250" })
+                    </div>
+                </div>
+                @Html.HiddenFor(device => device.statusID)
+
+                <div class="form-group">
+                    @Html.LabelFor(device => device.status, new { @class = "control-label col-md-4" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(device => device.status, ViewBag.status as SelectList, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" name="command" value="Export to Excel" class="btn btn-default" />
+                        <input type="submit" name="command" value="Export to PDF" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </center>
+        <div class="col-md-3">
+            @Html.ActionLink("Back to Device List", "Device", "Device")<div>&nbsp;</div>
+        </div>
+    </div>
+}

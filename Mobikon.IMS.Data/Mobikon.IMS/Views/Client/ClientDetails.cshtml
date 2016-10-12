@@ -1,0 +1,81 @@
+﻿@model Mobikon.IMS.Message.Client
+@{
+    ViewBag.Title = "Client Details";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=client-width" />
+        <title>Client Details</title>
+    </head>
+    <body>  
+        <div>&nbsp;</div>
+        <center>
+            <h5>
+                <strong>Brand Details</strong>
+            </h5>
+        </center>
+        <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: center;background-color: #fff;border: solid 1px #808080;">
+            <div>&nbsp;</div>
+            <div class="col-md-offset-4">               
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(client => client.clientName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(client => client.clientName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(client => client.address) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(client => client.address)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(client => client.countryName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(client => client.countryName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(client => client.cityName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(client => client.cityName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(client => client.activated) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(client => client.activated)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(client => client.userName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(client => client.userName)
+                    </dd>
+                </dl>
+
+
+                @if (Session["Role"].ToString() == "Administrators" || Session["Role"].ToString() == "Accounts")
+                {
+                    <p>
+                        @if (Model.activated == true)
+                    {
+                            @Html.ActionLink("Edit", "EditClient", new { clientID = Model.clientID, statusClient = Model.activated })
+                        }
+                        |@Html.ActionLink("Back to List", "Client")
+                    </p>
+                }
+                @if (Session["Role"].ToString() == "Operations")
+                {
+                    <p>
+                        @Html.ActionLink("Back to List", "Client")
+                    </p>
+                }
+            </div>
+        </div>
+        @section Scripts {        @Scripts.Render("~/bundles/jqueryval")    }
+    </body>
+</html>

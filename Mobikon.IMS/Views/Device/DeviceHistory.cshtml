@@ -1,0 +1,174 @@
+﻿@model PagedList.IPagedList<Mobikon.IMS.Message.DeviceTransaction>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Device history";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Device history</title>
+    </head>
+    <body>
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="/Scripts/jquery-2.1.4.js"></script>
+        <script src="/bundles/jquery-ui"></script>
+        <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="/Scripts/jquery.validate.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/Scripts/mobikonims.js"></script>
+        <center>
+            @using (Html.BeginForm("DeviceHistory", "Device", FormMethod.Get))
+            {
+                <div>&nbsp;</div>
+                <center>
+                    <h5>
+                        <strong>Device History</strong>
+                    </h5>
+                </center>
+                <div style="border-radius: 5px; vertical-align:central;text-align:left; width:1250px;background-color: #fff;border: solid 1px #808080;">
+                    <div class="filtering">
+                        <div class="container">
+                            <div class="row">
+                                <div class="brnd col-md-2">
+                                    <h5>Device Serial:</h5>
+                                    @Html.TextBox("productSerialSearch", ViewBag.productSerialSearch as string, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>Device Details:</h5>
+                                    @Html.TextBox("deviceDetailsSearch", ViewBag.deviceDetailsSearch as string, ViewBag.deviceDetailsFilter as string, new { @class = "form-control", @disabled = "disabled" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    @Html.Hidden("clientIDSearch", ViewBag.clientIDSearch as SelectList, ViewBag.clientIDFilter as string)
+                                    <h5>Brand:</h5>
+                                    @Html.DropDownList("clientNameSearch", ViewBag.clientNameSearch as SelectList, new { @class = "form-control", @autofocus = "autofocus" })
+                                </div>
+                                <div class="brnd col-md-2">
+                                    <h5>Outlet:</h5>
+                                    @Html.DropDownList("outletNameSearch", ViewBag.outletNameSearch as SelectList, new { @class = "form-control" })
+                                </div>
+                                @*<div class="brnd col-md-2">
+                                    <h5>City:</h5>
+                                    @Html.DropDownList("cityNameSearch", ViewBag.cityNameSearch as SelectList, new { @class = "form-control" })
+                                </div>*@
+                                <div class="brnd col-md-2">
+                                    <h5>Status:</h5>
+                                    @Html.DropDownList("statusSearch", ViewBag.statusSearch as SelectList, new { @class = "form-control" })
+                                </div>
+                                <div class="brnd col-md-1">
+                                    <h5>&nbsp;</h5>
+                                    <input type="submit" value="Search" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>&nbsp; </div>
+                </div>
+            }
+            <div style="border-radius: 5px; vertical-align:central; text-align: left;width:1250px;background-color: #fff;border: solid 1px #808080;">
+                <div class="container">
+                    <div>&nbsp;</div>
+                    <table class="table table-striped" data-search="true" style="border:solid 1px #ddd;background-color:lightyellow">
+
+                        <tr>
+                            <th>
+                                @Html.ActionLink("Device Serial", "Device", new { sortOrder = ViewBag.productSerialSort, productSerialFilter = ViewBag.productSerialFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Device details", "Device", new { sortOrder = ViewBag.seviceDetailsSort, deviceDetailsFilter = ViewBag.deviceDetailsFilter })
+                            </th>
+                            <th>Brand</th>
+                            <th>Outlet</th>
+                            <th>
+                                @Html.ActionLink("City", "Device", new { sortOrder = ViewBag.cityNameSort, cityNameFilter = ViewBag.cityNameFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink("Deployment Date", "Device", new { sortOrder = ViewBag.deliveryDateSort, deliveryDateFilter = ViewBag.deliveryDateFilter })
+                            </th>
+                            <th>DC No.</th>
+                            <th>
+                                @Html.ActionLink("Status", "Device", new { sortOrder = ViewBag.statusSort, statusFilter = ViewBag.statusFilter })
+                            </th>
+                            <th>Remarks/Note</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach (var deviceTransaction in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.productSerial)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.deviceDetails)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.clientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.outletName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.cityName), @Html.DisplayFor(modelItem => deviceTransaction.countryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.deliveryDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.dc)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => deviceTransaction.remarks)
+                                </td>
+                                <td>
+                                    @if (Session["Role"].ToString() == "Operations" || Session["Role"].ToString() == "Accounts")
+                                    {
+                                        if (deviceTransaction.currentStatus == true)
+                                        {
+                                            if (deviceTransaction.status == "Blocked" && deviceTransaction.userName == Session["UserName"].ToString())
+                                            {
+                                                @Html.ActionLink("Edit", "EditDeviceTransaction", new { serialNo = deviceTransaction.serialNo }) @Html.DisplayFor(device => deviceTransaction.seperator)
+                                            }
+                                            if (deviceTransaction.status != "Blocked")
+                                            {
+                                                @Html.ActionLink("Edit", "EditDeviceTransaction", new { serialNo = deviceTransaction.serialNo }) @Html.DisplayFor(device => deviceTransaction.seperator)
+                                            }
+                                        }
+                                    }
+                                    @if (Session["Role"].ToString() == "Administrators")
+                                    {
+                                        if (deviceTransaction.currentStatus == true)
+                                        {
+                                            @Html.ActionLink("Edit", "EditDeviceTransaction", new { serialNo = deviceTransaction.serialNo }) @Html.DisplayFor(device => deviceTransaction.seperator)
+                                        }
+                                    }
+                                    @Html.ActionLink("Details", "DeviceTransactionDetail", new { serialNo = deviceTransaction.serialNo })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <div class="row">
+                        <div>
+                            @Html.PagedListPager(Model, page => Url.Action("DeviceHistory", new { page, sortOrder = ViewBag.currentSort, productSerialFilter = ViewBag.productSerialFilter, deviceDetailsFilter = ViewBag.deviceDetailsFilter, cityNameFilter = ViewBag.cityNameFilter, statusFilter = ViewBag.statusFilter, deliveryDateFilter = ViewBag.deliveryDateFilter, paging = ViewBag.paging }))
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-pull-12">
+                            @Html.ActionLink("Export to Excel", "ExportToExcel", new { productSerial = Session["ProductSerial"].ToString() }, new { @class = "btn btn-default" })
+
+                            @Html.ActionLink("Export to PDF", "ExportToPDF", new { productSerial = Session["ProductSerial"].ToString() }, new { @class = "btn btn-default" })
+                        </div>
+                        <div>&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </body>
+</html>

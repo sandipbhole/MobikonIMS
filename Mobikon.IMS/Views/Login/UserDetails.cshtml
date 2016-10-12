@@ -1,0 +1,59 @@
+﻿@model Mobikon.IMS.Message.User
+@{
+    ViewBag.Title = "Users Details";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Users Details</title>
+    </head>
+    <body>
+        <div>&nbsp;</div>
+        <center>
+            <h5>
+                <strong>User Details</strong>
+            </h5>
+        </center>
+        <div class="col-md-offset-2 col-md-8" style="border-radius: 5px;text-align: left;background-color: #fff;border: solid 1px #808080;">
+            <div>&nbsp;</div>
+            <div class="col-md-offset-4">           
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(user => user.userName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(user => user.userName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(user => user.roleName) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(user => user.roleName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(user => user.email) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(user => user.email)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(user => user.activated) :
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(user => user.activated)
+                    </dd>
+                </dl>
+
+                <p>
+                    @if (Model.activated == true)
+                {
+                        @Html.ActionLink("Edit", "EditUser", new { userID = Model.userID, statusUser = Model.activated })
+                    }
+                    |@Html.ActionLink("Back to List", "Users")
+                </p>
+            </div>
+        </div>
+        @section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+    </body>
+</html>
